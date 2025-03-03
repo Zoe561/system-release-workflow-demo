@@ -1,14 +1,19 @@
 <!doctype html>
 <html lang="en" data-critters-container>
+
 <head>
   <meta charset="utf-8">
   <title>換版文件線上平台</title>
   <base href="/system-release-workflow-demo/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- 重定向到主頁 -->
+  <meta http-equiv="refresh" content="0;URL='/system-release-workflow-demo/'">
+</head>
+
 <body>
-  <app-root></app-root>
   <script type="text/javascript">
     sessionStorage.redirect = location.href;
   </script>
+</body>
 </html>
