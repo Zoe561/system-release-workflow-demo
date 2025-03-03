@@ -1,0 +1,25 @@
+.large-input {
+    width: 300px;
+}
+/* 溫和配色 */
+.section-warm {
+    margin: 8px 0px !important;
+    padding: 12px;
+    border: 1px solid gray;
+}
+.section-warm:nth-child(odd) {
+    background-color: #f8f7f2; /* 溫和的奶油色 */
+    //   color: #2d2d2d;  /* 接近黑色但不會太重 */
+}
+
+.section-warm:nth-child(even) {
+    background-color: #edf0f4; /* 淺灰藍，容易閱讀 */
+    // color: #2d2d2d;
+}
+nz-form-item {
+    margin: 10px;
+}
+
+.primary-btn {
+    background-color: #b19545;
+}

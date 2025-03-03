@@ -1,0 +1,272 @@
+<section style="height: 100%;overflow-y: auto;padding: 24px;">
+    <button nz-button [nzGhost]="true" [nzType]="'primary'"disabled>個人模板1</button>
+    <div style="text-align: right;">
+        <button [nzGhost]="true" [nzType]="'primary'"
+            style="width: 200px; font-weight: 600; font-size: 18px; margin-right: 16px;" nz-button
+            (click)="loadDemoData()">
+            載入範例資料
+        </button>
+    </div>
+    <form nz-form [formGroup]="form">
+        <!-- 編號區 -->
+        <section class="section-warm" nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="12">
+                <!-- 風險等級 -->
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzSpan]="4">風險等級</nz-form-label>
+                    <nz-form-control [nzSpan]="20" [nzErrorTip]="'請選擇風險等級'">
+                        <nz-radio-group formControlName="riskLevel">
+                            <label nz-radio nzValue="high">高</label>
+                            <label nz-radio nzValue="medium">中</label>
+                            <label nz-radio nzValue="low">低</label>
+                        </nz-radio-group>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="12">
+                <!-- 類型 -->
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzSpan]="4">類型</nz-form-label>
+                    <nz-form-control [nzSpan]="20" [nzErrorTip]="'請選擇類型'">
+                        <nz-radio-group formControlName="type">
+                            <label nz-radio nzValue="self">自製</label>
+                            <label nz-radio nzValue="outsource">委外</label>
+                        </nz-radio-group>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="12">
+                <!-- 型態 -->
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzSpan]="4">型態</nz-form-label>
+                    <nz-form-control [nzSpan]="20" [nzErrorTip]="'請選擇型態'">
+                        <nz-radio-group formControlName="versionType">
+                            <label nz-radio nzValue="regular">例行換版</label>
+                            <label nz-radio nzValue="nonRegular">非例行換版</label>
+                            <label nz-radio nzValue="emergency">緊急換版</label>
+                        </nz-radio-group>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="4">變更編號</nz-form-label>
+                    <nz-form-control [nzSpan]="20">
+                        <input style="width: 200px;" nz-input formControlName="changeNumber" placeholder="請輸入變更編號">
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </section>
+        <!-- 基本資料 -->
+        <section class="section-warm" nz-row [nzGutter]="24">
+            <!-- 系統名稱 -->
+            <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzSpan]="4">系統名稱</nz-form-label>
+                    <nz-form-control [nzSpan]="20" [nzErrorTip]="'請輸入系統名稱'">
+                        <input class="large-input" nz-input formControlName="systemName">
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <!-- 預計換版時間 -->
+            <div nz-col [nzSpan]="12">
+                <nz-form-item formGroupName="scheduledTime">
+                    <nz-form-label nzRequired [nzSpan]="4">預計換版時間</nz-form-label>
+                    <nz-form-control [nzSpan]="20" [nzErrorTip]="'請選擇完整的換版時間'">
+                        <nz-date-picker formControlName="date" (ngModelChange)="onDateChange($event)"
+                            nzFormat="yyyy/MM/dd">
+                        </nz-date-picker>
+                        <nz-time-picker formControlName="time" [nzMinuteStep]="15" [nzFormat]="'HH:mm'"
+                            style="margin-left: 8px;">
+                        </nz-time-picker>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <!-- 系統代號 -->
+            <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzSpan]="4">主要系統代號</nz-form-label>
+                    <nz-form-control [nzSpan]="20" [nzErrorTip]="'請輸入主要系統代號'">
+                        <input class="large-input" nz-input formControlName="primarySystemCode">
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="4">次要系統代號</nz-form-label>
+                    <nz-form-control [nzSpan]="20">
+                        <input class="large-input" nz-input formControlName="secondarySystemCode">
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <!-- 變更主旨 -->
+            <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzSpan]="4">變更主旨</nz-form-label>
+                    <nz-form-control [nzSpan]="20" [nzErrorTip]="'請輸入變更主旨'">
+                        <input class="large-input" nz-input formControlName="changeSubject">
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <!-- 換版類型（複選） -->
+            <div nz-col [nzSpan]="12">
+                <nz-form-item formGroupName="versionTypes">
+                    <nz-form-label nzRequired [nzSpan]="4">換版類型</nz-form-label>
+                    <nz-form-control [nzSpan]="20" [nzErrorTip]="'請至少選擇一個換版類型'"
+                        [nzValidateStatus]="form.controls['versionTypes'].touched ? (form.controls['versionTypes'].invalid ? 'error' : 'success') : ''">
+                        <label nz-checkbox formControlName="normalVersion">一般換版</label>
+                        <label nz-checkbox formControlName="newSystem">新系統上線</label>
+                        <label nz-checkbox formControlName="majorChange">重大變更</label>
+                        <label nz-checkbox formControlName="databaseChange">資料庫相關異動</label>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <!-- 需求單號 -->
+            <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzSpan]="4">需求單號</nz-form-label>
+                    <nz-form-control [nzSpan]="20" [nzErrorTip]="'請至少輸入一個需求單號'"
+                        [nzValidateStatus]="requestNumbers.touched ? (requestNumbers.invalid ? 'error' : 'success') : ''">
+                        <div formArrayName="requestNumbers">
+                            <div *ngFor="let number of requestNumbers.controls; let i=index">
+                                <input class="large-input" nz-input [formControlName]="i"
+                                    (blur)="requestNumbers.markAsTouched()">
+                                <button nz-button (click)="removeRequestNumber(i)"
+                                    *ngIf="requestNumbers.length > 1">移除</button>
+                            </div>
+                        </div>
+                        <button nz-button style="margin-top:8px;" (click)="addRequestNumber()">新增需求單號</button>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </section>
+
+        <!-- 換版交付項目 A-D -->
+        <section class="section-warm" nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="12">
+                <nz-form-item formGroupName="deliverables">
+                    <nz-form-label [nzSpan]="4">文件清單</nz-form-label>
+                    <nz-form-control [nzSpan]="20">
+                        <label nz-checkbox formControlName="requirementSpec">需求規格書</label>
+                        <label nz-checkbox formControlName="feasibilityReport">可行性分析報告</label>
+                        <label nz-checkbox formControlName="sourceCodeReport">源碼檢測報告</label>
+                        <label nz-checkbox formControlName="securityCheckForm">資安面檢核項目表單</label>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </section>
+        <!-- 換版交付項目 1-10 -->
+        <section class="section-warm" nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="12">
+                <nz-form-item formGroupName="deliverables">
+                    <nz-form-label [nzSpan]="4">交付項目</nz-form-label>
+                    <nz-form-control [nzSpan]="20">
+                        <div style="
+                            display: grid;
+                            grid-template-columns: repeat(3, 1fr);">
+                            <label nz-checkbox formControlName="systemChangeNotice"
+                                style="margin-left: 8px;">1.應用系統異動通報單</label>
+                            <label nz-checkbox formControlName="programFunction">2.程式功能說明</label>
+                            <label nz-checkbox formControlName="versionNotice">3.程式換版通知</label>
+                            <label nz-checkbox formControlName="integrationTest">4.整合測試報告</label>
+                            <label nz-checkbox formControlName="userTest">5.使用者測試報告</label>
+                            <label nz-checkbox formControlName="codeComparison">6.程式碼異動比對</label>
+                            <label nz-checkbox formControlName="versionLogs">7.換版前後記錄檔</label>
+                            <label nz-checkbox formControlName="mandatoryTestList">8.程式功能必測清單</label>
+                            <label nz-checkbox formControlName="sourceInspection">9.源碼檢測報告</label>
+                        </div>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="4">其他文件清單</nz-form-label>
+                    <nz-form-control [nzSpan]="20">
+                        <input class="large-input" nz-input formControlName="others">
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]="24">
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzSpan]="2">電子檔存放路徑</nz-form-label>
+                    <nz-form-control [nzSpan]="22">
+                        <div nz-row [nzGutter]="8" style="display: flex; align-items: center;">
+                            <div nz-col>{{baseFilePath}}</div>
+                            <div nz-col [nzSpan]="4">
+                                <nz-select formControlName="department" style="width: 100%;"
+                                    (ngModelChange)="updateFilePath()" nzPlaceHolder="請選擇部門"
+                                    [nzStatus]="isFieldInvalid('department') ? 'error' : ''" nzErrorTip="請選擇部門">
+                                    <nz-option *ngFor="let dept of departments" [nzValue]="dept.value"
+                                        [nzLabel]="dept.label">
+                                    </nz-option>
+                                </nz-select>
+                            </div>
+                            <div nz-col style="padding: 0 8px;">\</div>
+                            <div nz-col [nzSpan]="4">
+                                <nz-select formControlName="division" style="width: 100%;"
+                                    (ngModelChange)="updateFilePath()" nzPlaceHolder="請選擇科別"
+                                    [nzStatus]="isFieldInvalid('division') ? 'error' : ''" nzErrorTip="請選擇科別">
+                                    <nz-option *ngFor="let div of divisions" [nzValue]="div.value"
+                                        [nzLabel]="div.label">
+                                    </nz-option>
+                                </nz-select>
+                            </div>
+                            <div nz-col style="padding: 0 8px;">\</div>
+                            <div nz-col [nzSpan]="8">
+                                <input nz-input formControlName="filePath" placeholder="請輸入路徑">
+                            </div>
+                        </div>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </section>
+
+        <!-- 影響評估 -->
+        <section class="section-warm" nz-row [nzGutter]="24">
+            <!-- 影響關聯系統 -->
+            <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzSpan]="4">影響關聯系統</nz-form-label>
+                    <nz-form-control [nzSpan]="20" [nzErrorTip]="'請輸入影響關聯系統'" nzExtra="例如：現貨交易系統、現貨帳務系統，可寫無影響">
+                        <input class="large-input" nz-input formControlName="affectedSystems">
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <!-- 影響層面 -->
+            <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired [nzSpan]="4">影響層面</nz-form-label>
+                    <nz-form-control [nzSpan]="20" [nzErrorTip]="'請輸入影響層面'" nzExtra="例如：交易相關、帳務相關，不可寫無影響">
+                        <input class="large-input" nz-input formControlName="impactAreas">
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </section>
+
+        <!-- 申請人資訊 -->
+        <section class="section-warm" nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="12">
+                <nz-form-item formGroupName="applicant">
+                    <nz-form-label nzRequired [nzSpan]="4">申請人資訊</nz-form-label>
+                    <nz-form-control [nzSpan]="20" [nzErrorTip]="'請輸入申請人資訊'">
+                        <input class="large-input" style="margin-bottom: 8px;" nz-input formControlName="employeeId"
+                            placeholder="員編">
+                        <input class="large-input" nz-input formControlName="extension" placeholder="分機">
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+        </section>
+        <div style="text-align: center;padding: 16px;">
+            <button style="width: 200px;font-weight: 600;font-size: 18px;" nz-button nzType="primary" nzSize="large"
+                (click)="generateDoc()">產生文件</button>
+        </div>
+    </form>
+</section>
